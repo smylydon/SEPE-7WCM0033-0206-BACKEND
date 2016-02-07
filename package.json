@@ -1,0 +1,33 @@
+{
+  "name": "angular-restful-auth",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jwt",
+    "tutorial",
+    "backend"
+  ],
+  "author": "Michael Godden",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "jsonwebtoken": "^5.0.1",
+    "mongoose": "^4.0.5",
+    "morgan": "^1.5.3"
+  },
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-nodemon": "^2.0.3",
+    "hstore": "0.0.1",
+    "lodash-node": "^3.9.3",
+    "pg": "^4.4.4",
+    "sequelize": "^3.19.1",
+    "sinon": "^1.15.3"
+  }
+}
