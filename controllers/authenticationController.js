@@ -1,9 +1,9 @@
 var jwt = require("jsonwebtoken");
 
 var authenticationController = function(User) {
-
+ 
   var login = function(req, res) {
-    console.log('req:', req.body.email);
+    console.log('req:', req.body.email,req.body.password);
     User.findOne({
       where: {
         email: req.body.email,
