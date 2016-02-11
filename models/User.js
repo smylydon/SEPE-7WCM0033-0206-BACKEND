@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var UserSchema = new Schema({
-	email: String,
-	password: String,
-	token: String
-});
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('user', {
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    token: DataTypes.STRING,
+  }, {
+    paranoid: true,
+    underscored: true
+  });
+};

@@ -1,9 +1,11 @@
 var express = require('express');
+var jwt = require("jsonwebtoken");
 var _ = require("lodash-node");
 
 var routes = function(User) {
   var authenticationRouter = express.Router();
   var authenticationController = require('../controllers/authenticationController')(User);
+  console.log('routes');
 
   function ensureAuthorized(req, res, next) {
     console.log('ensureAuthorized');
@@ -13,34 +15,28 @@ var routes = function(User) {
       var bearer = bearerHeader.split(" ");
       bearerToken = bearer[1];
       req.token = bearerToken;
-      next();
+      jwt.verify(bearerToken, process.env.JWT_SECRET, function(err, decoded) {
+        if (err) {
+          res.status(403).json({
+            success: false,
+            message: "Bad token."
+          });
+        } else {
+          req.decoded = decoded;
+          next();
+        }
+      })
     } else {
       console.log('send Status 403');
-      res.sendStatus(403);
+      res.status(403).json({
+        success: false,
+        message: "No token."
+      });
     }
   }
 
-  function findUser(req, res, next) {
-    console.log('findUser');
-    User.findOne({
-      email: req.body.email,
-      password: req.body.password
-    }, function(err, user) {
-      if (err) {
-        res.status(500).json({
-          type: false,
-          data: "Error occurred:" + err
-        });
-      } else if (user) {
-        req.user = user;
-        next();
-      } else {
-        req.user = null;
-        next();
-      }
-    });
-  }
-//console.log('pick route: ', new Date());
+  //console.log('pick route: ', new Date());
+  /*
   authenticationRouter.use('/authenticate', findUser);
   authenticationRouter.use('/signin', findUser);
   authenticationRouter.use('/me', ensureAuthorized);
@@ -51,10 +47,9 @@ var routes = function(User) {
   authenticationRouter.route('/signin')
     .post(authenticationController.signinPost);
 
-
-  authenticationRouter.route('/me')
-    .get(authenticationController.getMe);
-
+*/
+  authenticationRouter.route('/login')
+    .post(authenticationController.login);
   return authenticationRouter;
 }
 
