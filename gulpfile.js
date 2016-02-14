@@ -1,10 +1,12 @@
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var nodemon = require('gulp-nodemon');
-var jasmine = require('gulp-jasmine');
+var mocha = require('gulp-mocha');
 
 gulp.task('test', function() {
-  gulp.src('./tests/*.js')
-    .pipe(jasmine());
+  gulp.src('./tests/*.js', {read: false})
+    .pipe(mocha({reporter: 'list'}))
+    .on('error', gutil.log);
 });
 
 gulp.task('default', function() {

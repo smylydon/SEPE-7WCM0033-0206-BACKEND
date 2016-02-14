@@ -1,14 +1,21 @@
-/*var sinon = require('sinon');
+var models = require('../models')
+var sinon = require('sinon');
+var chai = require('chai');
+var expect = chai.expect;
+var should = chai.should();
 
 describe('Authentication Controller Tests', function() {
-  var User, req, res;
+  var User, req, res, authenticationController;
 
   beforeEach(function() {
-    User = require('./../models/User');
+    User = models.User;
+
+    req = {};
     res = {
       status: sinon.spy(),
       send: sinon.spy()
-    }
+    };
+    authenticationController = require('../controllers/authenticationController')(User);
   });
 
   afterEach(function() {
@@ -16,10 +23,14 @@ describe('Authentication Controller Tests', function() {
   });
 
   describe('Post', function() {
-    it('should all an authentication post', function() {
-
+    it('should login a user with credentials email=guest@abc.com and password=password', function() {
+      req.body = {
+        email: 'guest@abc.com',
+        password: 'password'
+      };
+      authenticationController.login(req, res);
+      expect(1).to.equal(1);
     });
   })
 
 });
-*/

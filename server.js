@@ -1,18 +1,22 @@
 var _ = require("lodash-node");
+var path = require("path");
 var express = require("express");
 var morgan = require("morgan");
 var bodyParser = require("body-parser");
+//var cookieParser = require('cookie-parser');
 var jwt = require("jsonwebtoken");
 var app = express();
-
 var port = process.env.PORT || 3001;
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+//app.set('views', path.join(__dirname + 'views'))
+//app.set('view engine', 'html');
 
-app.use(bodyParser.json());
 app.use(morgan("dev"));
+
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
