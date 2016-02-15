@@ -1,20 +1,35 @@
 var models = require('../models')
 var sinon = require('sinon');
 var chai = require('chai');
+var chaiAsPromise = require('chai-as-promised');
 var expect = chai.expect;
 var should = chai.should();
+
+chai.use(chaiAsPromise);
 
 describe('Authentication Controller Tests', function() {
   var User, req, res, authenticationController;
 
   beforeEach(function() {
-    User = models.User;
+    var dummy = function() {};
+    User = {
+      findOne: dummy,
+      then: dummy,
+      catch: dummy,
+    }
+    sinon.stub(User);
+    User.findOne.returns(User);
+    User.then.returns(User);
 
     req = {};
     res = {
-      status: sinon.spy(),
-      send: sinon.spy()
+      status: dummy,
+      send: dummy,
+      json: dummy
     };
+
+    sinon.stub(res);
+    res.status.returns(res);
     authenticationController = require('../controllers/authenticationController')(User);
   });
 
@@ -29,7 +44,9 @@ describe('Authentication Controller Tests', function() {
         password: 'password'
       };
       authenticationController.login(req, res);
-      expect(1).to.equal(1);
+      expect(User.findOne.called).to.be.true;
+      expect(User.then.called).to.be.true;
+      expect(User.catch.called).to.be.true;
     });
   })
 

@@ -21,7 +21,9 @@
     "morgan": "^1.5.3"
   },
   "dependencies": {
+    "bluebird": "^3.3.1",
     "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
     "gulp": "^3.9.0",
     "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.0.3",
