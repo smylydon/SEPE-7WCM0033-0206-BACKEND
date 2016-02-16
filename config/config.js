@@ -15,8 +15,8 @@ module.exports = {
       PORT: 8000,
       JWT_SECRET: 'bobulousquest',
     },
-    sequelize: {
-      db: 'test',
+    database: {
+      name: 'test',
       user: 'postgres',
       password: 'password',
       settings: sequelizeSettings
@@ -28,8 +28,8 @@ module.exports = {
       PORT: 8000,
       JWT_SECRET: 'bobulousquest',
     },
-    sequelize: {
-      db: 'mydb',
+    database: {
+      name: 'mydb',
       user: 'postgres',
       password: 'password',
       settings: sequelizeSettings

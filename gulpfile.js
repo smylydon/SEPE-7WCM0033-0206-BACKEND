@@ -5,6 +5,9 @@ var mocha = require('gulp-mocha');
 var config = require('./config/config');
 
 gulp.task('test', function() {
+  process.env = {
+    serverName: 'test'
+  };
   gulp.src('./tests/*.js', {read: false})
     .pipe(mocha({reporter: 'list'}))
     .on('error', gutil.log);
