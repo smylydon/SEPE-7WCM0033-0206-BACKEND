@@ -2,15 +2,14 @@ var express = require('express');
 var jwt = require("jsonwebtoken");
 var _ = require("lodash-node");
 
-var routes = function(User) {
+var routes = function(models) {
   var authenticationRouter = express.Router();
-  var authenticationController = require('../controllers/authenticationController')(User);
-  console.log('routes');
+  var authenticationController = require('../controllers/authenticationController')(models.User);
 
   function ensureAuthorized(req, res, next) {
-    console.log('ensureAuthorized');
     var bearerToken;
     var bearerHeader = req.headers["authorization"];
+
     if (!_.isUndefined(bearerHeader)) {
       var bearer = bearerHeader.split(" ");
       bearerToken = bearer[1];
@@ -27,7 +26,6 @@ var routes = function(User) {
         }
       })
     } else {
-      console.log('send Status 403');
       res.status(403).json({
         success: false,
         message: "No token."

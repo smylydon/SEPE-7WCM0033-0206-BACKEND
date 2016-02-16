@@ -1,4 +1,3 @@
-var models = require('../models')
 var sinon = require('sinon');
 var chai = require('chai');
 var chaiAsPromise = require('chai-as-promised');

@@ -3,19 +3,19 @@ var path = require("path");
 var express = require("express");
 var morgan = require("morgan");
 var bodyParser = require("body-parser");
-//var cookieParser = require('cookie-parser');
-var jwt = require("jsonwebtoken");
+
 var app = express();
 var port = process.env.PORT || 3001;
 
-//app.set('views', path.join(__dirname + 'views'))
-//app.set('view engine', 'html');
+app.set('views', path.join(__dirname + 'views'))
+app.set('view engine', 'html');
 
 app.use(morgan("dev"));
 
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
 app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 
 app.set('models', require('./models'));
 
-var authenticationRouter = require('./routes/authentication')(app.get('models').User);
+var authenticationRouter = require('./routes/authentication')(app.get('models'));
 
 app.use('/api', authenticationRouter);
 
@@ -38,3 +38,5 @@ process.on('uncaughtException', function(err) {
 app.listen(port, function() {
   console.log(" Express server listening on port " + port);
 })
+
+module.exports = app;

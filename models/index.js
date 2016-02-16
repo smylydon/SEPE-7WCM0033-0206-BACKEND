@@ -1,8 +1,11 @@
 var _ = require("lodash-node");
+var config = require('../config/config');
 var Sequelize = require('sequelize');
 var models = [
   'User'
 ];
+var serverName = process.env.serverName || 'test';
+var configuration = config[serverName];
 
 //connect to database using sequelize
 var sequelize = new Sequelize('mydb', 'postgres', 'password', {
