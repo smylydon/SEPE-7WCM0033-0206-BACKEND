@@ -32,7 +32,7 @@ var authenticationController = function(User) {
 
   return {
     login: login
-  }
-}
+  };
+};
 
 module.exports = authenticationController;

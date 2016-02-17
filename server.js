@@ -7,7 +7,7 @@ var bodyParser = require("body-parser");
 var app = express();
 var port = process.env.PORT || 3001;
 
-app.set('views', path.join(__dirname + 'views'))
+app.set('views', path.join(__dirname + 'views'));
 app.set('view engine', 'html');
 
 app.use(morgan("dev"));
@@ -37,6 +37,6 @@ process.on('uncaughtException', function(err) {
 
 app.listen(port, function() {
   console.log(" Express server listening on port " + port);
-})
+});
 
 module.exports = app;

@@ -11,10 +11,10 @@ var database = configuration.database;
 
 //connect to database using sequelize
 var sequelize = new Sequelize(
-                    database.name,database.user,
-                    database.password,
-                    database.settings
-                  );
+  database.name, database.user,
+  database.password,
+  database.settings
+);
 
 //Export models
 _.forEach(models, function(model) {

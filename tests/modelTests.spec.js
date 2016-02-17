@@ -8,6 +8,8 @@ var sequelize = models.sequelize;
 
 chai.use(chaiAsPromise);
 
+process.env.serverName = 'test';
+
 describe('sequelize Model Tests', function() {
   var User, aUser;
 
@@ -15,7 +17,7 @@ describe('sequelize Model Tests', function() {
   before(function(done) {
     //drop and recreate tables from models
     sequelize.sync({
-        force: true
+        //force: true
       })
       .then(function(sequelize) {
         done();

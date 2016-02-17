@@ -8,7 +8,7 @@ var routes = function(models) {
 
   function ensureAuthorized(req, res, next) {
     var bearerToken;
-    var bearerHeader = req.headers["authorization"];
+    var bearerHeader = req.headers["authorization"];//jshint ignore:line
 
     if (!_.isUndefined(bearerHeader)) {
       var bearer = bearerHeader.split(" ");
@@ -24,7 +24,7 @@ var routes = function(models) {
           req.decoded = decoded;
           next();
         }
-      })
+      });
     } else {
       res.status(403).json({
         success: false,
@@ -49,6 +49,6 @@ var routes = function(models) {
   authenticationRouter.route('/login')
     .post(authenticationController.login);
   return authenticationRouter;
-}
+};
 
 module.exports = routes;
