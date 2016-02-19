@@ -1,38 +1,38 @@
-var jwt = require("jsonwebtoken");
+var jwt = require('jsonwebtoken');
 
 var authenticationController = function(User) {
 
-  var login = function(req, res) {
-    var user = new Object(req.body);
+    var login = function(req, res) {
+        var user = new Object(req.body);
 
-    User.findOne({
-      where: user
-    }).then(function(user) {
-      if (user) {
-        res.status(200).json({
-          success: true,
-          message: "Authentication success",
-          token: jwt.sign(user, process.env.JWT_SECRET, {
-            expiredsInMinutes: 1440
-          })
+        User.findOne({
+            where: user
+        }).then(function(user) {
+            if (user) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Authentication success',
+                    token: jwt.sign(user, process.env.JWT_SECRET, {
+                        expiredsInMinutes: 1440
+                    })
+                });
+            } else {
+                res.status(403).json({
+                    success: false,
+                    message: 'Authentication failed'
+                });
+            }
+        }).catch(function(err) {
+            res.status(500).json({
+                success: false,
+                message: 'Error occurred:' + err
+            });
         });
-      } else {
-        res.status(403).json({
-          success: false,
-          message: "Authentication failed"
-        });
-      }
-    }).catch(function(err) {
-      res.status(500).json({
-        success: false,
-        message: "Error occurred:" + err
-      });
-    });
-  };
+    };
 
-  return {
-    login: login
-  };
+    return {
+        login: login
+    };
 };
 
 module.exports = authenticationController;

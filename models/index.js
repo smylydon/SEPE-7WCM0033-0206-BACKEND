@@ -1,4 +1,4 @@
-var _ = require("lodash-node");
+var _ = require('lodash-node');
 var config = require('../config/config');
 var Sequelize = require('sequelize');
 var models = [
@@ -18,7 +18,7 @@ var sequelize = new Sequelize(
 
 //Export models
 _.forEach(models, function(model) {
-  module.exports[model] = sequelize.import(__dirname + '/' + model);
+    module.exports[model] = sequelize.import(__dirname + '/' + model);
 });
 
 //Export sequelize
