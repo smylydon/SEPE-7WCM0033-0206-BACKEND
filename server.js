@@ -3,12 +3,14 @@ var path = require('path');
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var handlebars = require('express-handlebars');
 
 var app = express();
 var port = process.env.PORT || 3001;
 
 app.set('views', path.join(__dirname + 'views'));
-app.set('view engine', 'html');
+app.engine('.hbs', handlebars({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 app.use(morgan('dev'));
 

@@ -8,6 +8,7 @@ var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
 var config = require('./config/config');
 
+var jsFiles = ['*.js', './models/**/*.js', './controllers/**/*.js', './routes/**/*.js'];
 gulp.task('test', function() {
     process.env = {
         serverName: 'test'
@@ -22,13 +23,13 @@ gulp.task('test', function() {
 });
 
 gulp.task('jscs', function() {
-    gulp.src(['*.js', './models/**/*.js', './controllers/**/*.js', './routes/**/*.js'])
+    return gulp.src(jsFiles)
         .pipe(jscs())
         .pipe(jscsstylish());
 });
 
 gulp.task('lint', function() {
-    gulp.src(['*.js', './models/**/*.js', './controllers/**/*.js', './routes/**/*.js'])
+    return gulp.src(jsFiles)
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(jshint.reporter('fail'));
