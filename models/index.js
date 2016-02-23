@@ -2,9 +2,16 @@ var _ = require('lodash-node');
 var config = require('../config/config');
 var Sequelize = require('sequelize');
 var models = [
+    'Country',
+    'Comment',
+    'Image',
+    'Make',
+    'Manufacturer',
+    'Part',
+    'Paymentmethod',
     'Person',
-    'User',
-    'Comment'
+    'Sale',
+    'User'
 ];
 var serverName = process.env.serverName || 'test';
 var configuration = config[serverName];

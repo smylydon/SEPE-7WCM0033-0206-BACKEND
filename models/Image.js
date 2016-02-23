@@ -1,9 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('comment', {
-        name: DataTypes.STRING,
-        email: DataTypes.STRING,
-        subject: DataTypes.STRING,
-        message: DataTypes.STRING
+    return sequelize.define('image', {
+        type: DataTypes.STRING,
+        image: DataTypes.BLOB
     }, {
         paranoid: true, //mark as deleted but do not delete
         underscored: true //use underscore instead of camelCase.
