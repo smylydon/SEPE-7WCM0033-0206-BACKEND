@@ -54,8 +54,16 @@ describe('Comments Controller Tests', function() {
         expect(Comment.catch.called).to.be.true;
     });
 
+    it('should be possible to retrieve one comment from the DBMS', function() {
+        req.params = { id: 1 };
+        commentsController.commentGet(req, res);
+        expect(Comment.findOne.called).to.be.true;
+        expect(Comment.then.called).to.be.true;
+        expect(Comment.catch.called).to.be.true;
+    });
+    
     it('should be possible to retrieve all comments from the DBMS', function() {
-        req.body = {};
+        req.params = { id: null };
         commentsController.commentGet(req, res);
         expect(Comment.findAll.called).to.be.true;
         expect(Comment.then.called).to.be.true;

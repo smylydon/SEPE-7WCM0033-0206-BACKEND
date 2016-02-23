@@ -27,7 +27,7 @@ var commentsController = function(Comment) {
     var get = function(req, res) {
         request = req;
         response = res;
-        if (req.boddy) {
+        if (req.params.id) {
             getOne(req, res);
         } else {
             getAll(req, res);
@@ -45,7 +45,7 @@ var commentsController = function(Comment) {
         var comment = new Object(req.body);
         message = 'Failed to retrieve comment';
         Comment.findOne({
-                where: comment
+                where: { id: req.params.id}
             })
             .then(success)
             .catch(error);

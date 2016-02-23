@@ -43,7 +43,7 @@ var routes = function(models) {
     authenticationRouter.route('/comment')
         .post(commentsController.commentPost);
 
-    authenticationRouter.route('/comments')
+    authenticationRouter.route('/comments/:id')
         .get(commentsController.commentGet);
 
     return authenticationRouter;
