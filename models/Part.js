@@ -1,7 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('part', {
         name: DataTypes.STRING,
-        make: DataTypes.STRING,
         stock: DataTypes.INTEGER,
         description: DataTypes.STRING,
     }, {

@@ -26,10 +26,13 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
     next();
 });
-
-app.set('models', require('./models'));
+var models = require('./models');
+app.set('models', models);
 
 var authenticationRouter = require('./routes/authentication')(app.get('models'));
+var sequelize = models.sequelize;
+
+sequelize.sync();
 
 app.use('/api', authenticationRouter);
 

@@ -2,6 +2,7 @@ var _ = require('lodash-node');
 var config = require('../config/config');
 var Sequelize = require('sequelize');
 var models = [
+    'Car',
     'Country',
     'Comment',
     'Image',
@@ -29,7 +30,14 @@ _.forEach(models, function(model) {
     module.exports[model] = sequelize.import(__dirname + '/' + model);
 });
 
-sequelize.sync();
+(function(m) {
+    m.Car.belongsTo(m.Make);
+    m.Part.belongsTo(m.Manufacturer);
+    m.User.belongsTo(m.Person);
+    m.Sale.belongsTo(m.Paymentmethod);
+})(module.exports);
+
+//sequelize.sync();
 
 //Export sequelize
 module.exports.sequelize = sequelize;
