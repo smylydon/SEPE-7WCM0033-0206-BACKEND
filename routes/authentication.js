@@ -5,6 +5,7 @@ var _ = require('lodash-node');
 var routes = function(models) {
     var authenticationRouter = express.Router();
     var authenticationController = require('../controllers/authenticationController')(models.User);
+    var commentsController = require('../controllers/commentsController')(models.Comment);
 
     function ensureAuthorized(req, res, next) {
         var bearerToken;
@@ -33,21 +34,18 @@ var routes = function(models) {
         }
     }
 
-    //console.log('pick route: ', new Date());
     /*
-  authenticationRouter.use('/authenticate', findUser);
-  authenticationRouter.use('/signin', findUser);
-  authenticationRouter.use('/me', ensureAuthorized);
-
-  authenticationRouter.route('/authenticate')
-    .post(authenticationController.authenticatePost);
-
-  authenticationRouter.route('/signin')
-    .post(authenticationController.signinPost);
-
-*/
+      authenticationRouter.use('/comments', ensureAuthorized);
+    */
     authenticationRouter.route('/login')
         .post(authenticationController.login);
+
+    authenticationRouter.route('/comment')
+        .post(commentsController.commentPost);
+
+    authenticationRouter.route('/comments')
+        .get(commentsController.commentGet);
+
     return authenticationRouter;
 };
 

@@ -48,7 +48,7 @@ describe('Comments Controller Tests', function() {
 
     it('should be possible to save a comment to the DBMS', function() {
         req.body = aComment;
-        commentsController.save(req, res);
+        commentsController.commentPost(req, res);
         expect(Comment.create.called).to.be.true;
         expect(Comment.then.called).to.be.true;
         expect(Comment.catch.called).to.be.true;
@@ -56,7 +56,7 @@ describe('Comments Controller Tests', function() {
 
     it('should be possible to retrieve all comments from the DBMS', function() {
         req.body = {};
-        commentsController.get(req, res);
+        commentsController.commentGet(req, res);
         expect(Comment.findAll.called).to.be.true;
         expect(Comment.then.called).to.be.true;
         expect(Comment.catch.called).to.be.true;
