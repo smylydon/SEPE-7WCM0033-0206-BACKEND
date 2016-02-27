@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('part', {
-        name: DataTypes.STRING,
+        name: DataTypes.STRING(64),
         stock: DataTypes.INTEGER,
         description: DataTypes.STRING,
     }, {

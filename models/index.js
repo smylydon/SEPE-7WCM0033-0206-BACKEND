@@ -37,7 +37,9 @@ _.forEach(models, function(model) {
     m.Sale.belongsTo(m.Paymentmethod);
 })(module.exports);
 
-//sequelize.sync();
+console.log('=========== Database is:', serverName);
+
+sequelize.sync();
 
 //Export sequelize
 module.exports.sequelize = sequelize;
