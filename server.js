@@ -34,6 +34,10 @@ var sequelize = models.sequelize;
 
 sequelize.sync();
 
+var insertData = require('./data');
+
+insertData();
+
 app.use('/api', authenticationRouter);
 
 process.on('uncaughtException', function(err) {
