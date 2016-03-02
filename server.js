@@ -34,9 +34,9 @@ var sequelize = models.sequelize;
 
 sequelize.sync();
 
-var insertData = require('./data');
+//var insertData = require('./data');
 
-insertData();
+//insertData();
 
 app.use('/api', authenticationRouter);
 
