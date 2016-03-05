@@ -9,7 +9,7 @@ var models = [
     'Make',
     'Manufacturer',
     'Part',
-    'Paymentmethod',
+    'Payment',
     'Person',
     'Sale',
     'User'
@@ -34,12 +34,12 @@ _.forEach(models, function(model) {
     m.Car.belongsTo(m.Make);
     m.Part.belongsTo(m.Manufacturer);
     m.User.belongsTo(m.Person);
-    m.Sale.belongsTo(m.Paymentmethod);
+    m.Sale.belongsTo(m.Payment);
 })(module.exports);
 
 console.log('=========== Database is:', serverName);
 
-sequelize.sync();
+//sequelize.sync();
 
 //Export sequelize
 module.exports.sequelize = sequelize;

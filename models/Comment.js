@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('comment', {
-        name: DataTypes.STRING(64),
+        'name': DataTypes.STRING(64),
         email: {
             type: DataTypes.STRING(64),
             validate: {

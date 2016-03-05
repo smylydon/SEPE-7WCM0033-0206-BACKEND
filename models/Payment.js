@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('paymentmethod', {
+    return sequelize.define('payment', {
         name: DataTypes.STRING(32),
     }, {
         paranoid: true, //mark as deleted but do not delete

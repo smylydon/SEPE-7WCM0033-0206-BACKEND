@@ -7,8 +7,8 @@ var authenticationController = function(User) {
 
         User.findOne({
             where: user
-        }).then(function(user) {
-            if (user) {
+        }).then(function(newUser) {
+            if (newUser) {
                 res.status(200).json({
                     success: true,
                     message: 'Authentication success',

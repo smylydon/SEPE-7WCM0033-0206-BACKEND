@@ -42,7 +42,7 @@ describe('sequelize Model Tests', function() {
             aUser = null;
         });
 
-        it('should not find a user with credentials email=xguest@abc.com and password=password', function(done) {
+        it('should not find a user with credentials email=guest@abc.com and password=password', function(done) {
             User.findOne({
                 where: aUser
             }).then(function(user) {

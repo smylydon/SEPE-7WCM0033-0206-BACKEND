@@ -30,7 +30,7 @@ var carsController = function(Car) {
     }
 
     function createOne(req, res) {
-        setRequestResponse(req, res)
+        setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to save car.';
         Car.create(car)
@@ -39,7 +39,7 @@ var carsController = function(Car) {
     }
 
     function retrieveOne(req, res) {
-        setRequestResponse(req, res)
+        setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to retrieve car';
         Car.findOne({
@@ -52,7 +52,7 @@ var carsController = function(Car) {
     }
 
     function retrieveAll(req, res) {
-        setRequestResponse(req, res)
+        setRequestResponse(req, res);
         message = 'Failed to retrieve cars.';
         Car.findAll({})
             .then(success)
@@ -60,7 +60,7 @@ var carsController = function(Car) {
     }
 
     function updateOne(req, res) {
-        setRequestResponse(req, res)
+        setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to update car.';
         Car.save(car)
@@ -69,7 +69,7 @@ var carsController = function(Car) {
     }
 
     function deleteOne(req, res) {
-        setRequestResponse(req, res)
+        setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to delete car.';
         Car.destroy(car)
