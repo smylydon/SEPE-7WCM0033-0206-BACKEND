@@ -32,11 +32,11 @@ app.set('models', models);
 var authenticationRouter = require('./routes/authentication')(app.get('models'));
 var sequelize = models.sequelize;
 
-sequelize.sync();
+//sequelize.sync();
 
-//var insertData = require('./data');
+var insertData = require('./Data');
 
-//insertData();
+insertData();
 
 app.use('/api', authenticationRouter);
 

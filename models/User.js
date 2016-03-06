@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         password: DataTypes.STRING,
-        authorization: DataTypes.INTEGER(3)
+        authorization: DataTypes.INTEGER
     }, {
         paranoid: true, //mark as deleted but do not delete
         underscored: true //use underscore instead of camelCase.

@@ -38,6 +38,7 @@
     "lodash-node": "^3.9.3",
     "morgan": "^1.5.3",
     "pg": "^4.4.4",
+    "randomstring": "^1.1.4",
     "sequelize": "^3.19.1"
   }
 }

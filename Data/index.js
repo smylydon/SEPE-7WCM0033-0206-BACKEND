@@ -1,24 +1,6 @@
-var models = require('./models');
-var insertMakes = require('./insertMakes');
-
+var models = require('./../models');
+var insertUsers = require('./insertUsers');
 var sequelize = models.sequelize;
-
-var users = [{
-    email: 'guest@abc.com',
-    password: 'password'
-}, {
-    email: 'fred@mailinator.com',
-    password: 'x'
-}, {
-    email: 'wilma@mailinator.com',
-    password: 'x'
-}, {
-    email: 'pebbles@mailinator.com',
-    password: 'x'
-}, {
-    email: 'bambam@mailinator.com',
-    password: 'x'
-}];
 
 var comments = [{
     'name': 'Guest User',
@@ -34,26 +16,14 @@ var comments = [{
 
 function insertComments() {
     var aComment = comments.shift();
-    Comment = models.Comment;
+    var Comment = models.Comment;
+
     Comment.create(aComment)
         .then(function(comment) {
             if (comments.length) {
                 insertComments();
             } else {
-                insertMakes();
-            }
-        });
-}
-
-function insertUsers() {
-    var aUser = users.shift();
-    User = models.User;
-    User.create(aUser)
-        .then(function(user) {
-            if (users.length > 0) {
                 insertUsers();
-            } else if (comments.length > 0) {
-                insertComments();
             }
         });
 }
@@ -63,7 +33,7 @@ function insertData() {
             force: true
         })
         .then(function(sequelize) {
-            insertUsers();
+          insertComments();
         }).catch(function(error) {
             throw Error(error);
         });
