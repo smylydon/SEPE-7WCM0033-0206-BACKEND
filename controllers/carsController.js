@@ -20,7 +20,7 @@ var carsController = function(Car) {
     function error(err) {
         response.status(500).json({
             success: false,
-            message: 'Error occurred:' + err
+            message: 'Error occurred:' + message
         });
     }
 
@@ -40,7 +40,6 @@ var carsController = function(Car) {
 
     function retrieveOne(req, res) {
         setRequestResponse(req, res);
-        var car = new Object(req.body);
         message = 'Failed to retrieve car';
         Car.findOne({
                 where: {

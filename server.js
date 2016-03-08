@@ -26,17 +26,17 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
     next();
 });
-var models = require('./models');
-app.set('models', models);
+
+app.set('models', require('./models'));
 
 var authenticationRouter = require('./routes/authentication')(app.get('models'));
-var sequelize = models.sequelize;
+var sequelize = app.get('models').sequelize;
 
-//sequelize.sync();
+sequelize.sync();
 
-var insertData = require('./Data');
+//var insertData = require('./data');
 
-insertData();
+//insertData();
 
 app.use('/api', authenticationRouter);
 

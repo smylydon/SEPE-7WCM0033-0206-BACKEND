@@ -1,6 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('person', {
         firstname: DataTypes.STRING(64),
+        middlenames: DataTypes.STRING(64),
         lastname: DataTypes.STRING(64),
         sex: {
             type: DataTypes.STRING(1),
