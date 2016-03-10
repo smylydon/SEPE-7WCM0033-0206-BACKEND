@@ -62,7 +62,7 @@ var carsController = function(Car) {
         setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to update car.';
-        Car.save(car)
+        Car.update(car)
             .then(success)
             .catch(error);
     }

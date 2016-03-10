@@ -19,16 +19,20 @@ describe('Comments Controller Tests', function() {
         };
         Comment = {
             create: dummy,
+            destroy: dummy,
             findOne: dummy,
             findAll: dummy,
             then: dummy,
             catch: dummy,
+            update: dummy
         }
         sinon.stub(Comment);
         Comment.create.returns(Comment);
         Comment.findOne.returns(Comment);
         Comment.findAll.returns(Comment);
         Comment.then.returns(Comment);
+        Comment.destroy.returns(Comment);
+        Comment.update.returns(Comment);
 
         req = {};
         res = {
@@ -52,6 +56,8 @@ describe('Comments Controller Tests', function() {
         expect(Comment.create.called).to.be.true;
         expect(Comment.then.called).to.be.true;
         expect(Comment.catch.called).to.be.true;
+        expect(Comment.destroy.called).to.be.false;
+        expect(Comment.update.called).to.be.false;
     });
 
     it('should be possible to retrieve one comment from the DBMS', function() {
@@ -60,6 +66,8 @@ describe('Comments Controller Tests', function() {
         expect(Comment.findOne.called).to.be.true;
         expect(Comment.then.called).to.be.true;
         expect(Comment.catch.called).to.be.true;
+        expect(Comment.destroy.called).to.be.false;
+        expect(Comment.update.called).to.be.false;
     });
 
     it('should be possible to retrieve all comments from the DBMS', function() {
@@ -68,6 +76,28 @@ describe('Comments Controller Tests', function() {
         expect(Comment.findAll.called).to.be.true;
         expect(Comment.then.called).to.be.true;
         expect(Comment.catch.called).to.be.true;
+        expect(Comment.destroy.called).to.be.false;
+        expect(Comment.update.called).to.be.false;
     });
 
+    it('should be possible to update a comment to the DBMS', function() {
+        aComment.id = 1;
+        req.body = aComment;
+        commentsController.commentsPut(req, res);
+        expect(Comment.create.called).to.be.false;
+        expect(Comment.then.called).to.be.true;
+        expect(Comment.catch.called).to.be.true;
+        expect(Comment.destroy.called).to.be.false;
+        expect(Comment.update.called).to.be.true;
+    });
+
+    it('should be possible to delete a comment from the DBMS', function() {
+        req.params = { id: 1 };
+        commentsController.commentsDelete(req, res);
+        expect(Comment.findAll.called).to.be.false;
+        expect(Comment.then.called).to.be.true;
+        expect(Comment.catch.called).to.be.true;
+        expect(Comment.destroy.called).to.be.true;
+        expect(Comment.update.called).to.be.false;
+    });
 });

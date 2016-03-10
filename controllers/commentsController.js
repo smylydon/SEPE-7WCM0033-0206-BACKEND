@@ -62,7 +62,7 @@ var commentsController = function(Comment) {
         setRequestResponse(req, res);
         var comment = new Object(req.body);
         message = 'Failed to update comment.';
-        Comment.save(comment)
+        Comment.update(comment)
             .then(success)
             .catch(error);
     }
