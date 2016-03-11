@@ -1,7 +1,11 @@
-function commentsRoute(authenticationRouter, Comment) {
+function commentsRoute(setter, Comment) {
     var commentsController = require('../controllers/commentsController')(Comment);
+    var authenticationRouter = setter.authenticationRouter;
+    var authentication = setter.authentication;
+    var authorization = setter.authorization;
+
     authenticationRouter.route('/comments')
-      .get(commentsController.commentsGetAll);
+      .get(authentication,commentsController.commentsGetAll);
 
     authenticationRouter.route('/comments')
       .post(commentsController.commentsPost);

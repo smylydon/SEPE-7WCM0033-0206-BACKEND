@@ -4,6 +4,8 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var handlebars = require('express-handlebars');
+var authenitication = require('./authentication');
+var authorization = require('./authorization');
 
 var app = express();
 var port = process.env.PORT || 3001;
@@ -29,7 +31,7 @@ app.use(function(req, res, next) {
 
 app.set('models', require('./models'));
 
-var authenticationRouter = require('./routes/authentication')(app.get('models'));
+var authenticationRouter = require('./routes/authentication')(app.get('models'), authenitication, authorization);
 var sequelize = app.get('models').sequelize;
 
 //sequelize.sync();

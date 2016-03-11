@@ -8,9 +8,15 @@ chai.use(chaiAsPromise);
 
 describe('Cars Controller Tests', function() {
     var aCar, Car, req, res, carsController;
+    var authorization, authentication;
 
     beforeEach(function() {
         var dummy = function() {};
+        var middleware = function(req, res, next) {
+          next(req,res);
+        };
+        authentication = authorization = middleware; 
+
         aCar = {
             'name': 'Guest User',
             email: 'guest@abc.com',
