@@ -13,10 +13,15 @@ describe('Cars Controller Tests', function() {
     beforeEach(function() {
         var dummy = function() {};
         var middleware = function(req, res, next) {
-          next(req,res);
+            next(req,res);
         };
-        authentication = authorization = middleware; 
-
+        authentication = middleware;
+        authorization = function() {
+            return {
+                authorize: dummy,
+                authorization: middleware,
+            };
+        };
         aCar = {
             'name': 'Guest User',
             email: 'guest@abc.com',
@@ -31,7 +36,7 @@ describe('Cars Controller Tests', function() {
             then: dummy,
             catch: dummy,
             update: dummy
-        }
+        };
         sinon.stub(Car);
         Car.create.returns(Car);
         Car.findOne.returns(Car);
@@ -67,7 +72,7 @@ describe('Cars Controller Tests', function() {
     });
 
     it('should be possible to retrieve one car from the DBMS', function() {
-        req.params = { id: 1 };
+        req.params = {id: 1};
         carsController.carsGet(req, res);
         expect(Car.findOne.called).to.be.true;
         expect(Car.then.called).to.be.true;
@@ -77,7 +82,7 @@ describe('Cars Controller Tests', function() {
     });
 
     it('should be possible to retrieve all cars from the DBMS', function() {
-        req.params = { id: null };
+        req.params = {id: null};
         carsController.carsGetAll(req, res);
         expect(Car.findAll.called).to.be.true;
         expect(Car.then.called).to.be.true;
@@ -98,7 +103,7 @@ describe('Cars Controller Tests', function() {
     });
 
     it('should be possible to delete a car from the DBMS', function() {
-        req.params = { id: 1 };
+        req.params = {id: 1};
         carsController.carsDelete(req, res);
         expect(Car.findAll.called).to.be.false;
         expect(Car.then.called).to.be.true;

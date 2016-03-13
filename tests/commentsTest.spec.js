@@ -11,6 +11,16 @@ describe('Comments Controller Tests', function() {
 
     beforeEach(function() {
         var dummy = function() {};
+        var middleware = function(req, res, next) {
+            next(req,res);
+        };
+        authentication = middleware;
+        authorization = function() {
+            return {
+                authorize: function() {},
+                authorization: middleware,
+            };
+        };
         aComment = {
             'name': 'Guest User',
             email: 'guest@abc.com',
@@ -25,7 +35,7 @@ describe('Comments Controller Tests', function() {
             then: dummy,
             catch: dummy,
             update: dummy
-        }
+        };
         sinon.stub(Comment);
         Comment.create.returns(Comment);
         Comment.findOne.returns(Comment);
@@ -61,7 +71,7 @@ describe('Comments Controller Tests', function() {
     });
 
     it('should be possible to retrieve one comment from the DBMS', function() {
-        req.params = { id: 1 };
+        req.params = {id: 1};
         commentsController.commentsGet(req, res);
         expect(Comment.findOne.called).to.be.true;
         expect(Comment.then.called).to.be.true;
@@ -71,7 +81,7 @@ describe('Comments Controller Tests', function() {
     });
 
     it('should be possible to retrieve all comments from the DBMS', function() {
-        req.params = { id: null };
+        req.params = {id: null};
         commentsController.commentsGetAll(req, res);
         expect(Comment.findAll.called).to.be.true;
         expect(Comment.then.called).to.be.true;
@@ -92,7 +102,7 @@ describe('Comments Controller Tests', function() {
     });
 
     it('should be possible to delete a comment from the DBMS', function() {
-        req.params = { id: 1 };
+        req.params = {id: 1};
         commentsController.commentsDelete(req, res);
         expect(Comment.findAll.called).to.be.false;
         expect(Comment.then.called).to.be.true;

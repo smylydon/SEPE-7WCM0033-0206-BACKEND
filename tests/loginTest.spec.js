@@ -7,7 +7,7 @@ var should = chai.should();
 chai.use(chaiAsPromise);
 
 describe('Authentication Controller Tests', function() {
-    var User, req, res, authenticationController;
+    var User, req, res, loginController;
 
     beforeEach(function() {
         var dummy = function() {};
@@ -29,7 +29,7 @@ describe('Authentication Controller Tests', function() {
 
         sinon.stub(res);
         res.status.returns(res);
-        authenticationController = require('../controllers/authenticationController')(User);
+        loginController = require('../controllers/loginController')(User);
     });
 
     afterEach(function() {
@@ -42,7 +42,7 @@ describe('Authentication Controller Tests', function() {
                 email: 'guest@abc.com',
                 password: 'password'
             };
-            authenticationController.login(req, res);
+            loginController.login(req, res);
             expect(User.findOne.called).to.be.true;
             expect(User.then.called).to.be.true;
             expect(User.catch.called).to.be.true;

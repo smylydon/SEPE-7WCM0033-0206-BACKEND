@@ -1,19 +1,23 @@
-function carsRoute(authenticationRouter, Car) {
+function carsRoute(setter, Car) {
     var carsController = require('../controllers/carsController')(Car);
-    authenticationRouter.route('/cars')
+    var router = setter.router;
+    var authentication = setter.authentication;
+    var authorization = setter.authorization;
+
+    router.route('/cars')
       .get(carsController.carsGetAll);
 
-    authenticationRouter.route('/cars')
-      .post(carsController.carsPost);
+    router.route('/cars')
+      .post(authentication, carsController.carsPost);
 
-    authenticationRouter.route('/cars/:id')
+    router.route('/cars/:id')
       .get(carsController.carsGet);
 
-    authenticationRouter.route('/cars')
-      .put(carsController.carsPut);
+    router.route('/cars')
+      .put(authentication, carsController.carsPut);
 
-    authenticationRouter.route('/cars/:id')
-      .delete(carsController.carsDelete);
+    router.route('/cars/:id')
+      .delete(authentication, carsController.carsDelete);
 }
 
 module.exports = carsRoute;

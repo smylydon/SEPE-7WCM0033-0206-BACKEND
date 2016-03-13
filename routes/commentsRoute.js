@@ -1,23 +1,23 @@
 function commentsRoute(setter, Comment) {
     var commentsController = require('../controllers/commentsController')(Comment);
-    var authenticationRouter = setter.authenticationRouter;
+    var router = setter.router;
     var authentication = setter.authentication;
-    var authorization = setter.authorization;
+    var authorization = setter.authorization.authorization;
 
-    authenticationRouter.route('/comments')
-      .get(authentication,commentsController.commentsGetAll);
+    router.route('/comments')
+      .get(authentication, authorization, commentsController.commentsGetAll);
 
-    authenticationRouter.route('/comments')
+    router.route('/comments')
       .post(commentsController.commentsPost);
 
-    authenticationRouter.route('/comments/:id')
-      .get(commentsController.commentsGet);
+    router.route('/comments/:id')
+      .get(authentication, authorization, commentsController.commentsGet);
 
-    authenticationRouter.route('/comments')
-      .put(commentsController.commentsPut);
+    router.route('/comments')
+      .put(authentication, authorization, commentsController.commentsPut);
 
-    authenticationRouter.route('/comments/:id')
-      .delete(commentsController.commentsDelete);
+    router.route('/comments/:id')
+      .delete(authentication, authorization, commentsController.commentsDelete);
 }
 
 module.exports = commentsRoute;

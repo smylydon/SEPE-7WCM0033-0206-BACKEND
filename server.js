@@ -31,16 +31,16 @@ app.use(function(req, res, next) {
 
 app.set('models', require('./models'));
 
-var authenticationRouter = require('./routes/authentication')(app.get('models'), authenitication, authorization);
+var router = require('./routes/routing')(app.get('models'), authenitication, authorization);
 var sequelize = app.get('models').sequelize;
 
-//sequelize.sync();
+sequelize.sync();
 
-var insertData = require('./Data');
+//var insertData = require('./Data');
 
-insertData();
+//insertData();
 
-app.use('/api', authenticationRouter);
+app.use('/api', router);
 
 process.on('uncaughtException', function(err) {
     console.log(err);
