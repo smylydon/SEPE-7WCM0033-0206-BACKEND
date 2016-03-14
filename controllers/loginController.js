@@ -13,7 +13,7 @@ var loginController = function(User, authentication) {
         }
 
         User.findOne({
-            where: user
+            where: {email: user.email, password: user.password}
         }).then(function(newUser) {
             var token = null;
             if (newUser) {
