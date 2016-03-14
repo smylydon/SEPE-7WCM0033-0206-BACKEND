@@ -38,6 +38,7 @@
     "jsonwebtoken": "^5.0.1",
     "lodash-node": "^3.9.3",
     "morgan": "^1.5.3",
+    "multer": "^1.1.0",
     "pg": "^4.4.4",
     "randomstring": "^1.1.4",
     "redis": "^2.5.0-1",

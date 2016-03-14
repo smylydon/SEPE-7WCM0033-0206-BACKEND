@@ -76,12 +76,22 @@ var carsController = function(Car) {
             .catch(error);
     }
 
+    function uploadPix(req, res) {
+        console.log('upload ready:', req.file, req.body.car_id);
+        res.status(200)
+          .json({
+              success: true,
+              message: 'image uploaded successfully'
+          });
+    }
+
     return {
         carsPost: createOne,
         carsGetAll: retrieveAll,
         carsGet: retrieveOne,
         carsPut: updateOne,
-        carsDelete: deleteOne
+        carsDelete: deleteOne,
+        carsUploadPixPost: uploadPix
     };
 };
 
