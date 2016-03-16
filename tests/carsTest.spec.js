@@ -33,6 +33,7 @@ describe('Cars Controller Tests', function() {
             destroy: dummy,
             findOne: dummy,
             findAll: dummy,
+            findAndCountAll: dummy,
             then: dummy,
             catch: dummy,
             update: dummy
@@ -41,6 +42,7 @@ describe('Cars Controller Tests', function() {
         Car.create.returns(Car);
         Car.findOne.returns(Car);
         Car.findAll.returns(Car);
+        Car.findAndCountAll.returns(Car);
         Car.then.returns(Car);
         Car.destroy.returns(Car);
         Car.update.returns(Car);
@@ -84,7 +86,8 @@ describe('Cars Controller Tests', function() {
     it('should be possible to retrieve all cars from the DBMS', function() {
         req.params = {id: null};
         carsController.carsGetAll(req, res);
-        expect(Car.findAll.called).to.be.true;
+        expect(Car.findAndCountAll.called).to.be.true;
+        expect(Car.findAll.called).to.be.false;
         expect(Car.then.called).to.be.true;
         expect(Car.catch.called).to.be.true;
         expect(Car.destroy.called).to.be.false;

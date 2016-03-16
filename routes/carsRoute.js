@@ -1,5 +1,5 @@
-function carsRoute(setter, Car) {
-    var carsController = require('../controllers/carsController')(Car);
+function carsRoute(setter, Car, Make) {
+    var carsController = require('../controllers/carsController')(Car, Make);
     var router = setter.router;
     var authentication = setter.authentication;
     var authorization = setter.authorization;
