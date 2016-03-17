@@ -1,12 +1,12 @@
 
-var commentsController = function(Comment) {
+var peopleController = function(Person, User) {
     var message = '';
     var request, response;
 
-    function success(comment) {
-        if (comment) {
+    function success(person) {
+        if (person) {
             response.status(200)
-              .json(comment);
+              .json(person);
         } else {
             response.status(403)
         .json({
@@ -30,25 +30,26 @@ var commentsController = function(Comment) {
 
     function createOne(req, res) {
         setRequestResponse(req, res);
-        var comment = new Object(req.body);
-        message = 'Failed to save comment.';
-        Comment.create(comment)
+        var person = new Object(req.body);
+        message = 'Failed to save person.';
+        Person.create(person)
           .then(success)
           .catch(error);
     }
 
     function retrieveAll(req, res) {
         setRequestResponse(req, res);
-        message = 'Failed to retrieve comments.';
-        Comment.findAll({})
+        message = 'Failed to retrieve people.';
+        console.log('get all people');
+        Person.findAll({})
           .then(success)
           .catch(error);
     }
 
     function retrieveOne(req, res) {
         setRequestResponse(req, res);
-        message = 'Failed to retrieve comment.';
-        Comment.findOne({
+        message = 'Failed to retrieve person.';
+        Person.findOne({
             where: {
                 id: req.params.id
             }
@@ -59,29 +60,29 @@ var commentsController = function(Comment) {
 
     function updateOne(req, res) {
         setRequestResponse(req, res);
-        var comment = new Object(req.body);
-        message = 'Failed to update comment.';
-        Comment.update(comment)
+        var person = new Object(req.body);
+        message = 'Failed to update person.';
+        Person.update(person)
             .then(success)
             .catch(error);
     }
 
     function deleteOne(req, res) {
         setRequestResponse(req, res);
-        var comment = new Object(req.body);
-        message = 'Failed to delete comment.';
-        Comment.destroy(comment)
+        var person = new Object(req.body);
+        message = 'Failed to delete person.';
+        Person.destroy(person)
             .then(success)
             .catch(error);
     }
 
     return {
-        commentsPost: createOne,
-        commentsGetAll: retrieveAll,
-        commentsGet: retrieveOne,
-        commentsPut: updateOne,
-        commentsDelete: deleteOne
+        peoplePost: createOne,
+        peopleGetAll: retrieveAll,
+        peopleGet: retrieveOne,
+        peoplePut: updateOne,
+        peopleDelete: deleteOne
     };
 };
 
-module.exports = commentsController;
+module.exports = peopleController;

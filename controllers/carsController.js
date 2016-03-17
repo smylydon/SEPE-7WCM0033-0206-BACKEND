@@ -1,4 +1,3 @@
-var jwt = require('jsonwebtoken');
 
 var carsController = function(Car, Make) {
     var message = '';
@@ -10,19 +9,20 @@ var carsController = function(Car, Make) {
             .json(car);
         } else {
             response.status(403)
-				.json({
-    success: false,
-    message: message
-				});
+            .json({
+                success: false,
+                message: message
+            });
         }
     }
 
     function error(err) {
+        var error = 'Error occurred:' + message;
         response.status(500)
-			.json({
-    success: false,
-    message: 'Error occurred:' + message
-			});
+        .json({
+            success: false,
+            message: error
+        });
     }
 
     function setRequestResponse(req, res) {
@@ -53,15 +53,14 @@ var carsController = function(Car, Make) {
 
     function retrieveAll(req, res) {
         setRequestResponse(req, res);
-				var query = req.query;
-				if (!query) {
-					query = {
-						offset: 0,
-						limit: 5
-					}
-				}
+        var query = req.query;
+        if (!query) {
+            query = {
+                offset: 0,
+                limit: 5
+            };
+        }
         message = 'Failed to retrieve cars.';
-				console.log('req:', query);
         Car.findAndCountAll({
             offset: parseInt(query.offset) * 5,
             limit: 5
@@ -89,12 +88,13 @@ var carsController = function(Car, Make) {
     }
 
     function uploadPix(req, res) {
-        console.log('upload ready:', req.file, req.body.car_id);
+        //console.log('upload ready:', req.file, req.body.car_id);
+        var message = 'image uploaded successfully';
         res.status(200)
-			.json({
-    success: true,
-    message: 'image uploaded successfully'
-			});
+        .json({
+            success: true,
+            message: message
+        });
     }
 
     return {

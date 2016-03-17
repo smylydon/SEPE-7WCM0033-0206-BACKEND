@@ -10,11 +10,31 @@ function authorization() {
     var acl = new ACL(new ACL.redisBackend(client, 'acl_'));
 
     acl.addRoleParents('guest', ['salesperson', 'manager', 'administrator']);
+
     acl.allow([{
-        roles: ['salesperson'],
+        roles: ['guest','salesperson', 'manager', 'administrator'],
+        allows: [{
+            resources: '/comments',
+            permissions: ['post']
+        }]
+    }]);
+
+    acl.allow([{
+        roles: ['salesperson', 'manager', 'administrator'],
         allows: [{
             resources: '/comments',
             permissions: ['get', 'put', 'delete']
+        },{
+            resources: '/people',
+            permissions: ['get', 'put', 'post']
+        }]
+    }]);
+
+    acl.allow([{
+        roles: ['administrator'],
+        allows: [{
+            resources: '/people',
+            permissions: ['delete']
         }]
     }]);
 
@@ -25,7 +45,7 @@ function authorization() {
         if (_.indexOf(accessLevels, access) >= 0) {
             acl.addUserRoles(userId, access, function(err) {
                 if (!err) {
-                    authorizationPromise.resolve('access level set');
+                    authorizationPromise.resolve(access);
                 } else {
                     authorizationPromise.reject('no access level found!');
                 }
@@ -46,15 +66,21 @@ function authorization() {
             if (result) {
                 next();
             } else {
+                console.log('resource, action:', resource, action);
                 var checkError = new Error('User does not have permission to perform this action.');
                 next(checkError);
             }
         });
     }
 
+    function getAccessLevels() {
+        return accessLevels;
+    }
+
     return {
         authorize: authorize,
-        authorization: checkAuthorization
+        authorization: checkAuthorization,
+        getAccessLevels: getAccessLevels
     };
 }
 

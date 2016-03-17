@@ -20,11 +20,12 @@ var loginController = function(User, authentication) {
                 token = jwt.sign(user, process.env.JWT_SECRET, {
                     expiredsInMinutes: 1440
                 });
-                authentication.authorize(token, 1).then(function() {
+                authentication.authorize(token, 1).then(function(accessLevel) {
                     res.status(200).json({
                         success: true,
                         message: 'Authorization success',
-                        token: token
+                        token: token,
+                        accessLevel: accessLevel
                     });
                 }).catch(function(error) {
                     authenticationFail();

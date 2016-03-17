@@ -18,6 +18,8 @@ var routes = function(models, authentication, authorization) {
 
     require('./commentsRoute')(external, models.Comment);
 
+    require('./peopleRoute')(external, models.Person, models.User);
+
     return router;
 };
 
