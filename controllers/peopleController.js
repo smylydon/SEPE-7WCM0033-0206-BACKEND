@@ -40,7 +40,6 @@ var peopleController = function(Person, User) {
     function retrieveAll(req, res) {
         setRequestResponse(req, res);
         message = 'Failed to retrieve people.';
-        console.log('get all people');
         Person.findAll({})
           .then(success)
           .catch(error);
