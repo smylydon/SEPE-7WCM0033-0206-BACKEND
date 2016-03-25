@@ -8,7 +8,7 @@ var commentsController = function(Comment) {
             response.status(200)
               .json(comment);
         } else {
-            response.status(403)
+            response.status(404)
         .json({
             success: false,
             message: message

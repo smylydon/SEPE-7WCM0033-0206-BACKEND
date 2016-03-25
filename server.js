@@ -10,9 +10,11 @@ var authorization = require('./authorization');
 var app = express();
 var port = process.env.PORT || 3001;
 
-app.set('views', path.join(__dirname + 'views'));
-app.engine('.hbs', handlebars({extname: '.hbs'}));
-app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname + '/views'));
+app.engine('hbs', handlebars({
+    extname: 'hbs'
+}));
+app.set('view engine', 'hbs');
 
 app.use(morgan('dev'));
 
@@ -32,7 +34,8 @@ app.use(function(req, res, next) {
 app.set('models', require('./models'));
 
 var router = require('./routes/routing')(app.get('models'), authenitication, authorization);
-var sequelize = app.get('models').sequelize;
+var sequelize = app.get('models')
+	.sequelize;
 
 sequelize.sync();
 
@@ -42,8 +45,14 @@ sequelize.sync();
 
 app.use('/api', router);
 
+app.get('/testView', function(req, res) {
+    var model = ['Mary', 'had', 'a', 'little', 'lamb'];
+    res.render('test', {model: model});
+});
+
 process.on('uncaughtException', function(err) {
     console.log(err);
+    res.render('404');
 });
 
 app.listen(port, function() {

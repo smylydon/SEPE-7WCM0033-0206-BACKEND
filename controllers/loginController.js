@@ -1,11 +1,11 @@
 var jwt = require('jsonwebtoken');
 
-var loginController = function(User, authentication) {
+var loginController = function(User, authorization) {
 
     var login = function(req, res) {
         var user = new Object(req.body);
 
-        function authenticationFail() {
+        function authorizationFailed() {
             res.status(403).json({
                 success: false,
                 message: 'Authorization failed'
@@ -20,7 +20,7 @@ var loginController = function(User, authentication) {
                 token = jwt.sign(user, process.env.JWT_SECRET, {
                     expiredsInMinutes: 1440
                 });
-                authentication.authorize(token, 1).then(function(accessLevel) {
+                authorization.authorize(token, 1).then(function(accessLevel) {
                     res.status(200).json({
                         success: true,
                         message: 'Authorization success',
@@ -28,11 +28,11 @@ var loginController = function(User, authentication) {
                         accessLevel: accessLevel
                     });
                 }).catch(function(error) {
-                    authenticationFail();
+                    authorizationFailed();
                 });
 
             } else {
-                authenticationFail();
+                authorizationFailed();
             }
         }).catch(function(err) {
             res.status(500).json({

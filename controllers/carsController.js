@@ -8,7 +8,7 @@ var carsController = function(Car, Make) {
             response.status(200)
             .json(car);
         } else {
-            response.status(403)
+            response.status(404)
             .json({
                 success: false,
                 message: message
