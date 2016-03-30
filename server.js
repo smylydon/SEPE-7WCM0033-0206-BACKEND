@@ -52,7 +52,7 @@ app.get('/testView', function(req, res) {
 
 process.on('uncaughtException', function(err) {
     console.log(err);
-    res.render('404');
+    //res.render('404');
 });
 
 app.listen(port, function() {
