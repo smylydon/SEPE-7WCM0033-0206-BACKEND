@@ -1,4 +1,3 @@
-
 var carsController = function(Car, Make) {
     var message = '';
     var request, response;
@@ -8,21 +7,23 @@ var carsController = function(Car, Make) {
             response.status(200)
             .json(car);
         } else {
-            response.status(404)
-            .json({
+            var error = {
                 success: false,
                 message: message
-            });
+            };
+            response.status(404)
+            .json(error);
         }
     }
 
     function error(err) {
-        var error = 'Error occurred:' + message;
-        response.status(500)
-        .json({
+        var error = {
             success: false,
-            message: error
-        });
+            message: 'Error occurred:' + message
+        };
+
+        response.status(500)
+        .json(error);
     }
 
     function setRequestResponse(req, res) {
@@ -45,7 +46,38 @@ var carsController = function(Car, Make) {
         Car.findOne({
             where: {
                 id: req.params.id
-            }
+            },
+            include: [{
+                model: Make
+            }]
+        })
+        .then(success)
+        .catch(error);
+    }
+
+    function retrieveModels(req, res) {
+        setRequestResponse(req, res);
+        message = 'Failed to retrieve car models.';
+
+        Car.findAll({
+            where: {
+                make_id: req.params.id
+            },
+            attributes: ['model']
+        })
+        .then(success)
+        .catch(error);
+    }
+
+    function retrieveYears(req, res) {
+        setRequestResponse(req, res);
+        message = 'Failed to retrieve car years.';
+
+        Car.findAll({
+            where: {
+                make_id: req.params.id
+            },
+            attributes: ['year']
         })
         .then(success)
         .catch(error);
@@ -63,7 +95,10 @@ var carsController = function(Car, Make) {
         message = 'Failed to retrieve cars.';
         Car.findAndCountAll({
             offset: parseInt(query.offset) * 5,
-            limit: 5
+            limit: 5,
+            include: [{
+                model: Make
+            }]
         })
         .then(success)
         .catch(error);
@@ -88,13 +123,13 @@ var carsController = function(Car, Make) {
     }
 
     function uploadPix(req, res) {
-        //console.log('upload ready:', req.file, req.body.car_id);
         var message = 'image uploaded successfully';
-        res.status(200)
-        .json({
+        var result = {
             success: true,
             message: message
-        });
+        };
+        res.status(200)
+        .json(result);
     }
 
     return {
@@ -103,6 +138,8 @@ var carsController = function(Car, Make) {
         carsGet: retrieveOne,
         carsPut: updateOne,
         carsDelete: deleteOne,
+        carsGetModels: retrieveModels,
+        carsGetYears: retrieveYears,
         carsUploadPixPost: uploadPix
     };
 };

@@ -114,4 +114,24 @@ describe('Cars Controller Tests', function() {
         expect(Car.destroy.called).to.be.true;
         expect(Car.update.called).to.be.false;
     });
+
+    it('should be possible to retrieve all models.', function() {
+        req.params = {id: 9};
+        carsController.carsGetModels(req, res);
+        expect(Car.findAll.called).to.be.true;
+        expect(Car.then.called).to.be.true;
+        expect(Car.catch.called).to.be.true;
+        expect(Car.destroy.called).to.be.false;
+        expect(Car.update.called).to.be.false;
+    });
+
+    it('should be possible to retrieve all years.', function() {
+        req.params = {id: 9};
+        carsController.carsGetYears(req, res);
+        expect(Car.findAll.called).to.be.true;
+        expect(Car.then.called).to.be.true;
+        expect(Car.catch.called).to.be.true;
+        expect(Car.destroy.called).to.be.false;
+        expect(Car.update.called).to.be.false;
+    });
 });

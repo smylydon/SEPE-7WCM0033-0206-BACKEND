@@ -6,22 +6,28 @@ function carsRoute(setter, Car, Make) {
     var uploads = setter.uploads;
 
     router.route('/cars')
-      .get(carsController.carsGetAll);
+    .get(carsController.carsGetAll);
 
     router.route('/cars')
-      .post(authentication, carsController.carsPost);
+    .post(authentication, carsController.carsPost);
 
     router.route('/cars/:id')
-      .get(carsController.carsGet);
+    .get(carsController.carsGet);
+
+    router.route('/cars/models/:id')
+    .get(carsController.carsGetModels);
+
+    router.route('/cars/years/:id')
+    .get(carsController.carsGetYears);
 
     router.route('/cars')
-      .put(authentication, carsController.carsPut);
+    .put(authentication, carsController.carsPut);
 
     router.route('/cars/:id')
-      .delete(authentication, carsController.carsDelete);
+    .delete(authentication, carsController.carsDelete);
 
     router.route('/cars/uploadpix')
-      .post(uploads.single('photo'), carsController.carsUploadPixPost);
+    .post(uploads.single('photo'), carsController.carsUploadPixPost);
 }
 
 module.exports = carsRoute;

@@ -1,4 +1,3 @@
-
 var makesController = function(Make) {
     var message = '';
     var request, response;
@@ -9,20 +8,20 @@ var makesController = function(Make) {
             .json(make);
         } else {
             response.status(404)
-            .json({
-                success: false,
-                message: message
-            });
+				.json({
+    success: false,
+    message: message
+				});
         }
     }
 
     function error(err) {
         var error = 'Error occurred:' + message;
         response.status(500)
-        .json({
-            success: false,
-            message: error
-        });
+			.json({
+    success: false,
+    message: error
+			});
     }
 
     function setRequestResponse(req, res) {
@@ -53,18 +52,8 @@ var makesController = function(Make) {
 
     function retrieveAll(req, res) {
         setRequestResponse(req, res);
-        var query = req.query;
-        if (!query) {
-            query = {
-                offset: 0,
-                limit: 5
-            };
-        }
         message = 'Failed to retrieve make.';
-        Make.findAndCountAll({
-            offset: parseInt(query.offset) * 5,
-            limit: 5
-        })
+        Make.findAll({})
         .then(success)
         .catch(error);
     }

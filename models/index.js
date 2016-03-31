@@ -31,7 +31,7 @@ _.forEach(models, function(model) {
 });
 
 (function(m) {
-    m.Make.hasMany(m.Car);
+    m.Car.belongsTo(m.Make);
     m.Manufacturer.hasMany(m.Part);
     m.User.belongsTo(m.Person);
     m.Sale.belongsTo(m.Payment);
