@@ -12,16 +12,22 @@ function authorization() {
     acl.addRoleParents('guest', ['salesperson', 'manager', 'administrator']);
 
     acl.allow([{
-        roles: ['guest','salesperson', 'manager', 'administrator'],
+        roles: ['guest'],
         allows: [{
             resources: '/comments',
             permissions: ['post']
+        },{
+            resources: '/cars',
+            permissions: ['get']
         }]
     }]);
 
     acl.allow([{
         roles: ['salesperson', 'manager', 'administrator'],
         allows: [{
+            resources: '/cars',
+            permissions: ['put', 'post']
+        },{
             resources: '/comments',
             permissions: ['get', 'put', 'delete']
         },{
@@ -33,7 +39,7 @@ function authorization() {
     acl.allow([{
         roles: ['administrator'],
         allows: [{
-            resources: '/people',
+            resources: ['/cars','makes','/people'],
             permissions: ['delete']
         }]
     }]);

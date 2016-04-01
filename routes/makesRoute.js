@@ -2,23 +2,22 @@ function makesRoute(setter, Make) {
     var makesController = require('../controllers/makesController')(Make);
     var router = setter.router;
     var authentication = setter.authentication;
-    var authorization = setter.authorization;
-    var uploads = setter.uploads;
+    var authorization = setter.authorization.authorization;
 
     router.route('/makes')
-      .get(makesController.makesGetAll);
+    .get(makesController.makesGetAll);
 
     router.route('/makes')
-      .post(makesController.makesPost);
+    .post(authentication, authorization, makesController.makesPost);
 
     router.route('/makes/:id')
-      .get(makesController.makesGet);
+    .get(makesController.makesGet);
 
     router.route('/makes')
-      .put(makesController.makesPut);
+    .put(authentication, authorization, makesController.makesPut);
 
     router.route('/makes/:id')
-      .delete(makesController.makesDelete);
+    .delete(authentication, authorization, makesController.makesDelete);
 }
 
 module.exports = makesRoute;
