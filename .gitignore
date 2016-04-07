@@ -1,6 +1,6 @@
 node_modules
 public
-upload/
+upload
 .tmp
 .sass-cache
 .idea

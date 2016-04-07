@@ -41,6 +41,9 @@ function authorization() {
         allows: [{
             resources: ['/cars','makes','/people'],
             permissions: ['delete']
+        },{
+            resources: '/cars/uploadpix',
+            permissions: ['delete','post','put']
         }]
     }]);
 
