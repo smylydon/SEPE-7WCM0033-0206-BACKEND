@@ -94,7 +94,7 @@ var carsController = function(Car, Make) {
         }
         message = 'Failed to retrieve cars.';
         Car.findAndCountAll({
-            offset: parseInt(query.offset) * 5,
+            offset: (parseInt(query.offset) || 0) * 5,
             limit: 5,
             include: [{
                 model: Make

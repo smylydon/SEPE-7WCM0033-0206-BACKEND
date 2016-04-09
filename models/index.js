@@ -6,6 +6,7 @@ var models = [
     'Country',
     'Comment',
     'Image',
+    'Licence',
     'Make',
     'Manufacturer',
     'Part',
@@ -32,9 +33,18 @@ _.forEach(models, function(model) {
 
 (function(m) {
     m.Car.belongsTo(m.Make);
-    m.Manufacturer.hasMany(m.Part);
+    m.Part.hasMany(m.Manufacturer);
     m.User.belongsTo(m.Person);
     m.Sale.belongsTo(m.Payment);
+
+    m.Car.belongsToMany(m.Image,{through: 'cars_images'});
+    m.Image.belongsToMany(m.Car, {through: 'cars_images'});
+
+    m.Part.belongsToMany(m.Image,{through: 'parts_images'});
+    m.Image.belongsToMany(m.Part, {through: 'parts_images'});
+
+    m.Licence.belongsToMany(m.Image,{through: 'licences_images'});
+    m.Image.belongsToMany(m.Licence, {through: 'licences_images'});
 })(module.exports);
 
 console.log('=========== Database is:', serverName);

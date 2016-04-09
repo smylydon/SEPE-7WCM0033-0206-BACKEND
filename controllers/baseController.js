@@ -13,25 +13,27 @@ var BaseController = {
     },
 
     success: function(result) {
+        var success = {
+            success: false,
+            message: message
+        };
         if (result) {
             this.response.status(200)
             .json(result);
         } else {
             this.response.status(404)
-				.json({
-    success: false,
-    message: message
-				});
+            .json(success);
         }
     },
 
     error: function(err) {
         var error = 'Error occurred:' + this.message;
+        var success = {
+            success: false,
+            message: error
+        };
         this.response.status(500)
-			.json({
-    success: false,
-    message: error
-			});
+        .json(success);
     },
 
     setRequestResponse: function(req, res) {
@@ -55,6 +57,7 @@ var BaseController = {
     },
 
     retrieveAll: function(req, res) {
+        //console.log('retrieveAll:', this);
         this.setUpVariables('find', req, res);
         var query = req.query;
         if (!query) {
@@ -65,18 +68,20 @@ var BaseController = {
         }
 
         this.read('findAndCountAll', {
-            offset: parseInt(query.offset) * this.limit,
+            offset: (parseInt(query.offset) || 0) * this.limit,
             limit: this.limit
         });
     },
 
     read: function(action, model) {
+        console.log('read:', model);
         this.Model[action](model)
         .then(this.success)
         .catch(this.error);
     },
 
     write: function(action) {
+        console.log('write:', action);
         var model = new Object(this.request.body);
         this.Model[action](model)
         .then(this.success)
@@ -94,6 +99,7 @@ var BaseController = {
     },
 
     setUpVariables: function(action, req, res) {
+        console.log('setUpVariables');
         this.message = 'Failed to ' + action + ' ' + this._name + '.';
         this.setRequestResponse(req, res);
     }

@@ -1,6 +1,7 @@
 var _ = require('lodash-node');
 var randomstring = require('randomstring');
 var models = require('./../models');
+var insertCountries = require('./insertCountries');
 
 var makes = [{
     'name': 'Alpha Romeo'
@@ -293,6 +294,8 @@ function insertCars() {
             Car.create(aCar);
         });
     });
+
+    insertCountries();
 }
 
 function insertMakes() {

@@ -5,19 +5,19 @@ function peopleRoute(setter, Person, User) {
     var authorization = setter.authorization.authorization;
 
     router.route('/people')
-      .get(authentication, authorization, peopleController.peopleGetAll);
+      .get(authentication, authorization, peopleController.retrieveAll);
 
     router.route('/people')
-      .post(authentication, authorization, peopleController.peoplePost);
+      .post(authentication, authorization, peopleController.createOne);
 
     router.route('/people/:id')
-      .get(authentication, authorization, peopleController.peopleGet);
+      .get(authentication, authorization, peopleController.retrieveOne);
 
     router.route('/people')
-      .put(authentication, authorization, peopleController.peoplePut);
+      .put(authentication, authorization, peopleController.updateOne);
 
     router.route('/people/:id')
-      .delete(authentication, authorization, peopleController.peopleDelete);
+      .delete(authentication, authorization, peopleController.deleteOne);
 }
 
 module.exports = peopleRoute;
