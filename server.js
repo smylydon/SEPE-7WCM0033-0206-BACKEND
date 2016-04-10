@@ -10,6 +10,7 @@ var authorization = require('./authorization');
 var app = express();
 var port = process.env.PORT || 3001;
 
+app.use(express.static('public'));
 app.set('views', path.join(__dirname + '/views'));
 app.engine('hbs', handlebars({
     extname: 'hbs'

@@ -53,6 +53,8 @@ var carsController = function(models) {
                 },
                 include: [{
                     model: Make
+                }, {
+                    model: Images //uses through relation
                 }]
             })
             .then(success)
@@ -130,22 +132,26 @@ var carsController = function(models) {
         setRequestResponse(req, res);
         message = 'Failed to save uploaded image.';
         var anImage = {};
+        var file = req.file;
+        console.log('file is at:', req.file);
 
-        Images.create(req.file)
+        if (file) {
+            Images.create(file)
             .then(function(image) {
                 anImage = image;
-                console.log('now getting car');
                 return Car.findById(req.body.car_id);
             })
             .then(function(car) {
-                console.log('got image:', anImage.id, car.id);
                 return CarsImages.create({
-                  image_id: anImage.id,
-                  car_id: car.id
-              });
+                    image_id: anImage.id,
+                    car_id: car.id
+                });
             })
             .then(success)
             .catch(error);
+        }else {
+            error();
+        }
     }
 
     return {
