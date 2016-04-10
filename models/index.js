@@ -37,14 +37,31 @@ _.forEach(models, function(model) {
     m.User.belongsTo(m.Person);
     m.Sale.belongsTo(m.Payment);
 
-    m.Car.belongsToMany(m.Image,{through: 'cars_images'});
-    m.Image.belongsToMany(m.Car, {through: 'cars_images'});
+    m.Car.belongsToMany(m.Image, {
+        through: 'carsImages'
+    });
+    m.Image.belongsToMany(m.Car, {
+        through: 'carsImages'
+    });
 
-    m.Part.belongsToMany(m.Image,{through: 'parts_images'});
-    m.Image.belongsToMany(m.Part, {through: 'parts_images'});
+    m.Part.belongsToMany(m.Image, {
+        through: 'partsImages'
+    });
+    m.Image.belongsToMany(m.Part, {
+        through: 'partsImages'
+    });
 
-    m.Licence.belongsToMany(m.Image,{through: 'licences_images'});
-    m.Image.belongsToMany(m.Licence, {through: 'licences_images'});
+    m.Licence.belongsToMany(m.Image, {
+        through: 'licencesImages'
+    });
+    m.Image.belongsToMany(m.Licence, {
+        through: 'licencesImages'
+    });
+
+    module.exports.CarsImages = sequelize.models.carsImages;
+    module.exports.PartsImages = sequelize.models.partsImages;
+    module.exports.LicencesImages = sequelize.models.licencesImages;
+
 })(module.exports);
 
 console.log('=========== Database is:', serverName);

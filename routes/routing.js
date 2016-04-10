@@ -14,7 +14,7 @@ var routes = function(models, authentication, authorization) {
 
     require('./loginRoute')(external, models.User);
 
-    require('./carsRoute')(external, models.Car, models.Make);
+    require('./carsRoute')(external, models);
 
     require('./makesRoute')(external, models.Make);
 

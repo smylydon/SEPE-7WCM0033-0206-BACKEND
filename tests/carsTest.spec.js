@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var sinon = require('sinon');
 var chai = require('chai');
 var chaiAsPromise = require('chai-as-promised');
@@ -7,7 +8,7 @@ var should = chai.should();
 chai.use(chaiAsPromise);
 
 describe('Cars Controller Tests', function() {
-    var aCar, Car, req, res, carsController;
+    var aCar, Car, CarsImages, Image, Make, models, req, res, carsController;
     var authorization, authentication;
 
     beforeEach(function() {
@@ -47,6 +48,16 @@ describe('Cars Controller Tests', function() {
         Car.destroy.returns(Car);
         Car.update.returns(Car);
 
+        CarsImages = _.clone(Car);
+        Image = _.clone(Car);
+        Make = _.clone(Car);
+        models = {
+          Car: Car,
+          CarsImages: CarsImages,
+          Image: Image,
+          Make: Make
+        }
+
         req = {};
         res = {
             status: dummy,
@@ -56,7 +67,7 @@ describe('Cars Controller Tests', function() {
 
         sinon.stub(res);
         res.status.returns(res);
-        carsController = require('../controllers/carsController')(Car);
+        carsController = require('../controllers/carsController')(models);
     });
 
     afterEach(function() {
