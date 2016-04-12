@@ -20,8 +20,8 @@ function carsRoute(setter, models) {
     router.route('/cars/years/:id')
     .get(carsController.carsGetYears);
 
-    router.route('/cars')
-    .put(authentication, authorization, carsController.carsPut);
+    router.route('/cars/:id')
+    .put(authentication,  carsController.carsPut);
 
     router.route('/cars/:id')
     .delete(authentication, authorization, carsController.carsDelete);

@@ -95,13 +95,13 @@ var carsController = function(models) {
         if (!query) {
             query = {
                 offset: 0,
-                limit: 5
+                limit: 10
             };
         }
         message = 'Failed to retrieve cars.';
         Car.findAndCountAll({
-                offset: (parseInt(query.offset) || 0) * 5,
-                limit: 5,
+                offset: (parseInt(query.offset) || 0) * 10,
+                limit: 10,
                 include: [{
                     model: Make
                 }]
@@ -114,7 +114,8 @@ var carsController = function(models) {
         setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to update car.';
-        Car.update(car)
+        Car.update(car,
+        {where: {id: req.params.id}})
             .then(success)
             .catch(error);
     }

@@ -108,6 +108,7 @@ describe('Cars Controller Tests', function() {
     it('should be possible to update a car to the DBMS', function() {
         aCar.id = 1;
         req.body = aCar;
+        req.params = {id: 1};
         carsController.carsPut(req, res);
         expect(Car.create.called).to.be.false;
         expect(Car.then.called).to.be.true;
