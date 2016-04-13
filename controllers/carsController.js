@@ -102,8 +102,11 @@ var carsController = function(models) {
         Car.findAndCountAll({
                 offset: (parseInt(query.offset) || 0) * 10,
                 limit: 10,
+                order: [['id', 'ASC']],
                 include: [{
                     model: Make
+                },{
+                    model: Images //uses through relation
                 }]
             })
             .then(success)
@@ -114,8 +117,11 @@ var carsController = function(models) {
         setRequestResponse(req, res);
         var car = new Object(req.body);
         message = 'Failed to update car.';
-        Car.update(car,
-        {where: {id: req.params.id}})
+        Car.update(car, {
+                where: {
+                    id: req.params.id
+                }
+            })
             .then(success)
             .catch(error);
     }
@@ -134,23 +140,23 @@ var carsController = function(models) {
         message = 'Failed to save uploaded image.';
         var anImage = {};
         var file = req.file;
-        console.log('file is at:', req.file);
 
         if (file) {
+            file.path = file.path.replace('public/','/');
             Images.create(file)
-            .then(function(image) {
-                anImage = image;
-                return Car.findById(req.body.car_id);
-            })
-            .then(function(car) {
-                return CarsImages.create({
-                    image_id: anImage.id,
-                    car_id: car.id
-                });
-            })
-            .then(success)
-            .catch(error);
-        }else {
+                .then(function(image) {
+                    anImage = image;
+                    return Car.findById(req.body.car_id);
+                })
+                .then(function(car) {
+                    return CarsImages.create({
+                        image_id: anImage.id,
+                        car_id: car.id
+                    });
+                })
+                .then(success)
+                .catch(error);
+        } else {
             error();
         }
     }
