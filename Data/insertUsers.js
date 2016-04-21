@@ -28,18 +28,22 @@ var people = [{
 	firstname: 'Barney',
 	lastname: 'Rabble',
 	sex: 'm',
-	email: 'bambam@mailinator.com',
+	email: 'barney@mailinator.com',
 	password: 'x'
 }, {
 	firstname: 'Betty',
 	lastname: 'Rabble',
 	sex: 'f',
+	email: 'betty@mailinator.com',
+	password: 'x',
 	authorization: 2
 }, {
 	firstname: 'Bam-Bam',
 	lastname: 'Rabble',
 	sex: 'm',
-	authorization: 3
+	authorization: 3,
+	email: 'bambam@mailinator.com',
+	password: 'x'
 }, {
 	firstname: 'Leonard',
 	lastname: 'McCoy',

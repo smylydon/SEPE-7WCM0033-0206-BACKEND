@@ -4,7 +4,7 @@ var ACL = require('acl');
 var client = require('redis').createClient(6379, '127.0.0.1', {
     no_ready_check: true
 });
-var accessLevels = ['guest', 'administrator', 'manager', 'saleperson', 'guest'];
+var accessLevels = ['guest', 'administrator', 'manager', 'salesperson', 'guest'];
 
 function authorization() {
     var acl = new ACL(new ACL.redisBackend(client, 'acl_'));
