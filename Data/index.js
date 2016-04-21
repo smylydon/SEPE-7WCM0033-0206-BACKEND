@@ -1,5 +1,5 @@
 var models = require('./../models');
-var insertUsers = require('./insertUsers');
+var insertPeople = require('./insertUsers');
 var sequelize = models.sequelize;
 
 var comments = [{
@@ -23,7 +23,7 @@ function insertComments() {
             if (comments.length) {
                 insertComments();
             } else {
-                insertUsers();
+                insertPeople();
             }
         });
 }

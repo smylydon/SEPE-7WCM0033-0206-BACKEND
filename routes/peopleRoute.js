@@ -1,5 +1,5 @@
-function peopleRoute(setter, Person, User) {
-    var peopleController = require('../controllers/peopleController')(Person, User);
+function peopleRoute(setter, Person) {
+    var peopleController = require('../controllers/peopleController')(Person);
     var router = setter.router;
     var authentication = setter.authentication;
     var authorization = setter.authorization.authorization;

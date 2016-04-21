@@ -11,7 +11,7 @@ chai.use(chaiAsPromise);
 process.env.serverName = 'test';
 
 describe('sequelize Model Tests', function() {
-    var User, aUser;
+    var Person, aPerson;
     var Comment, aComment;
 
     //Clean the database once.
@@ -27,26 +27,26 @@ describe('sequelize Model Tests', function() {
             })
     });
 
-    describe('User Model', function() {
+    describe('Person Model', function() {
 
         beforeEach(function() {
-            aUser = {
+            aPerson = {
                 email: 'guest@abc.com',
                 password: 'password'
             };
-            User = models.User;
+            Person = models.Person;
         });
 
         afterEach(function() {
-            User = null;
-            aUser = null;
+            Person = null;
+            aPerson = null;
         });
 
-        it('should not find a user with credentials email=guest@abc.com and password=password', function(done) {
-            User.findOne({
-                where: aUser
-            }).then(function(user) {
-                expect(user).to.equal(null);
+        it('should not find a Person with credentials email=guest@abc.com and password=password', function(done) {
+            Person.findOne({
+                where: aPerson
+            }).then(function(Person) {
+                expect(Person).to.equal(null);
                 done();
             }).catch(function(error) {
                 expect(true).to.be.true;
@@ -54,22 +54,22 @@ describe('sequelize Model Tests', function() {
             });
         });
 
-        it('should create a user with credentials email=guest@abc.com and password=password', function(done) {
-            User.create(aUser)
-                .then(function(user) {
-                    expect(user).to.not.equal(null);
-                    expect(user.email).to.equal('guest@abc.com');
-                    expect(user.password).to.equal('password');
+        it('should create a Person with credentials email=guest@abc.com and password=password', function(done) {
+            Person.create(aPerson)
+                .then(function(Person) {
+                    expect(Person).to.not.equal(null);
+                    expect(Person.email).to.equal('guest@abc.com');
+                    expect(Person.password).to.equal('password');
                     done();
                 });
         });
 
-        it('should find a user with credentials email=guest@abc.com and password=password', function(done) {
-            User.findOne({
-                where: aUser
-            }).then(function(user) {
-                expect(user.email).to.equal('guest@abc.com');
-                expect(user.password).to.equal('password');
+        it('should find a Person with credentials email=guest@abc.com and password=password', function(done) {
+            Person.findOne({
+                where: aPerson
+            }).then(function(Person) {
+                expect(Person.email).to.equal('guest@abc.com');
+                expect(Person.password).to.equal('password');
                 done();
             });
         });
@@ -80,7 +80,7 @@ describe('sequelize Model Tests', function() {
 
         beforeEach(function() {
             aComment = {
-                'name': 'Guest User',
+                'name': 'Guest Person',
                 email: 'guest@abc.com',
                 subject: 'Test',
                 message: 'Testing test'
@@ -89,8 +89,8 @@ describe('sequelize Model Tests', function() {
         });
 
         afterEach(function() {
-            User = null;
-            aUser = null;
+            Person = null;
+            aPerson = null;
         });
 
         it('should not find any comments', function(done) {

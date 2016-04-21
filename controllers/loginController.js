@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
 
-var loginController = function(User, authorization) {
+var loginController = function(Person, authorization) {
 
     var login = function(req, res) {
         var user = new Object(req.body);
@@ -12,7 +12,7 @@ var loginController = function(User, authorization) {
             });
         }
 
-        User.findOne({
+        Person.findOne({
             where: {email: user.email, password: user.password}
         }).then(function(newUser) {
             var token = null;

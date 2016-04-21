@@ -1,7 +1,20 @@
 
-var peopleController = function(Person, User) {
+var peopleController = function(Person) {
     var message = '';
     var request, response;
+    var allowedAttributes = [
+      'authorization',
+      'created_at',
+      'deleted_at',
+      'dob',
+      'email',
+      'firstname',
+      'id',
+      'lastname',
+      'middlenames',
+      'sex',
+      'updated_at'
+    ];
 
     function success(person) {
         if (person) {
@@ -42,7 +55,8 @@ var peopleController = function(Person, User) {
         message = 'Failed to retrieve people.';
         Person.findAndCountAll({
             offset: 0,
-            limit: 10
+            limit: 10,
+            attributes: allowedAttributes
         })
           .then(success)
           .catch(error);
@@ -54,7 +68,8 @@ var peopleController = function(Person, User) {
         Person.findOne({
             where: {
                 id: req.params.id
-            }
+            },
+            attributes: allowedAttributes
         })
         .then(success)
         .catch(error);
@@ -86,41 +101,5 @@ var peopleController = function(Person, User) {
         deleteOne: deleteOne
     };
 };
-/*
-var BaseController = require('./baseController');
-var peopleController = function(Person, User) {
-    var baseController = BaseController({
-        _name: 'people',
-        Model: Person
-    });
 
-    function createOne() {
-        baseController.createOne.apply(baseController, arguments);
-    }
-
-    function retrieveAll() {
-        baseController.retrieveAll.apply(baseController, arguments);
-    }
-
-    function retrieveOne() {
-        baseController.retrieveOne.apply(baseController, arguments);
-    }
-
-    function updateOne() {
-        baseController.updateOne.apply(baseController, arguments);
-    }
-
-    function deleteOne() {
-        baseController.deleteOne.apply(baseController, arguments);
-    }
-
-    return {
-        createOne: createOne,
-        retrieveAll: retrieveAll,
-        retrieveOne: retrieveOne,
-        updateOne: updateOne,
-        deleteOne: deleteOne
-    };
-};
-*/
 module.exports = peopleController;

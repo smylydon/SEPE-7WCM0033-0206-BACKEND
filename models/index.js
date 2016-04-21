@@ -12,8 +12,7 @@ var models = [
     'Part',
     'Payment',
     'Person',
-    'Sale',
-    'User'
+    'Sale'
 ];
 var serverName = process.env.serverName || 'test';
 var configuration = config[serverName];
@@ -34,7 +33,7 @@ _.forEach(models, function(model) {
 (function(m) {
     m.Car.belongsTo(m.Make);
     m.Part.hasMany(m.Manufacturer);
-    m.User.belongsTo(m.Person);
+    //m.User.belongsTo(m.Person);
     m.Sale.belongsTo(m.Payment);
 
     m.Car.belongsToMany(m.Image, {

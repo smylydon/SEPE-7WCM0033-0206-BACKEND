@@ -25,7 +25,7 @@ var routes = function(models, authentication, authorization) {
         uploads: uploads
     };
 
-    require('./loginRoute')(external, models.User);
+    require('./loginRoute')(external, models.Person);
 
     require('./carsRoute')(external, models);
 
@@ -33,7 +33,7 @@ var routes = function(models, authentication, authorization) {
 
     require('./commentsRoute')(external, models.Comment);
 
-    require('./peopleRoute')(external, models.Person, models.User);
+    require('./peopleRoute')(external, models.Person);
 
     return router;
 };

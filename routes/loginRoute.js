@@ -1,5 +1,5 @@
-function loginRoute(setter, User) {
-    var loginController = require('../controllers/loginController')(User,setter.authorization);
+function loginRoute(setter, Person) {
+    var loginController = require('../controllers/loginController')(Person,setter.authorization);
     var router = setter.router;
     var authentication = setter.authentication;
     var authorization = setter.authorization.authorization;
