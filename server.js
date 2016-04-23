@@ -38,11 +38,11 @@ var router = require('./routes/routing')(app.get('models'), authenitication, aut
 var sequelize = app.get('models')
 	.sequelize;
 
-//sequelize.sync();
+sequelize.sync();
 
-var insertData = require('./Data');
+//var insertData = require('./Data');
 
-insertData();
+//insertData();
 
 app.use('/api', router);
 
