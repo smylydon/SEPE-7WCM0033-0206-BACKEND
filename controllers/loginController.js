@@ -17,10 +17,11 @@ var loginController = function(Person, authorization) {
         }).then(function(newUser) {
             var token = null;
             if (newUser) {
+                user.password = '';
                 token = jwt.sign(user, process.env.JWT_SECRET, {
                     expiredsInMinutes: 1440
                 });
-                authorization.authorize(token, newUser.authorization).then(function(accessLevel) {
+                authorization.authorize(user.email, newUser.authorization).then(function(accessLevel) {
                     res.status(200).json({
                         success: true,
                         message: 'Authorization success',

@@ -35,6 +35,7 @@ describe('Cars Controller Tests', function() {
             findOne: dummy,
             findAll: dummy,
             findAndCountAll: dummy,
+            findById: dummy,
             then: dummy,
             catch: dummy,
             update: dummy
@@ -44,6 +45,7 @@ describe('Cars Controller Tests', function() {
         Car.findOne.returns(Car);
         Car.findAll.returns(Car);
         Car.findAndCountAll.returns(Car);
+        Car.findById.returns(Car);
         Car.then.returns(Car);
         Car.destroy.returns(Car);
         Car.update.returns(Car);
@@ -123,7 +125,6 @@ describe('Cars Controller Tests', function() {
         expect(Car.findAll.called).to.be.false;
         expect(Car.then.called).to.be.true;
         expect(Car.catch.called).to.be.true;
-        expect(Car.destroy.called).to.be.true;
         expect(Car.update.called).to.be.false;
     });
 
